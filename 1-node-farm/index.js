@@ -21,3 +21,9 @@ fs.readFile('./starter/txt/start.txt', 'utf-8', (err, data1) => {
     });
 });
 console.log('will read file...');
+
+// error handling
+fs.readFile('abc.txt', 'utf-8', (err, data) => {
+    if (err) return console.log('Error 🛑');
+    console.log('success 🟢');
+});
