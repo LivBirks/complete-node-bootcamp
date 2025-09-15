@@ -1,5 +1,6 @@
 const fs = require('fs');
 const http = require('http');
+const url = require('url');
 
 /////////////////////////////////////////////////////////////////////////
 // FILES
@@ -35,10 +36,34 @@ const http = require('http');
 /////////////////////////////////////////////////////////////////////////
 // SERVER
 
+
+// top level code only runs on execution so this data will be saved and not be read per request
+const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8')
+const dataObject = JSON.parse(data);
+
+
 // accepts a callbackfunction, request and reponse variables
 const server = http.createServer((req, res) => {
-    console.log(req);
-    res.end('Hello from the server');
+    console.log(req.url);
+    const pathName = req.url;
+    if (pathName === '/' || pathName === '/overview') {
+        res.end('this is the overview');
+    } else if (pathName === '/product') {
+        res.end('this is the product');
+    } else if (pathName === '/api') {
+        res.writeHead(200, {
+            'Content-type': 'application/json'
+        });
+        res.end(data);
+    } else {
+        // code, then headers
+        res.writeHead(404, {
+            'Content-type': 'text/html',
+            'my-own-header': 'hello world'
+        });
+        res.end('<h1>Page not found</h1>');
+    }
+    // res.end('Hello from the server');
 });
 
 //takes port, local host address, optional - callbackfunction to run when it's set up
