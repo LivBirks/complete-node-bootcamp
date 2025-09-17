@@ -56,7 +56,18 @@ const replaceTemplate = (template, productData) => {
 
 // top level code only runs on execution so this data will be saved and not be read per request
 const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8')
+// This is an array of objects with data for each card
 const dataObject = JSON.parse(data);
+
+// Read Overview Page
+const overviewTemplate = fs.readFileSync(`${__dirname}/starter/templates/overview.html`, 'utf-8');
+
+// Read Product Page
+const productTemplate = fs.readFileSync(`${__dirname}/starter/templates/product.html`, 'utf-8');
+
+// Read Card
+const cardTemplate = fs.readFileSync(`${__dirname}/starter/templates/card.html`, 'utf-8');
+
 
 
 // accepts a callbackfunction, request and reponse variables
