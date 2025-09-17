@@ -87,6 +87,7 @@ const server = http.createServer((req, res) => {
 
         const output = overviewTemplate.replace('{%CARDS%}', cardsHtml);
         res.end(output);
+    // Product Page
     } else if (pathname === '/product') {
         console.log(query);        
         res.writeHead(200, {
@@ -95,6 +96,7 @@ const server = http.createServer((req, res) => {
         const product = dataObject[query.id];
         const output = replaceTemplate(productTemplate, product);
         res.end(output);
+    // Page Not Found
     } else {
         // code, then headers
         res.writeHead(404, {
