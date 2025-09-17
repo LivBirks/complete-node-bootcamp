@@ -81,9 +81,12 @@ const server = http.createServer((req, res) => {
     // Overview Page
     if (pathname === '/' || pathname === '/overview') {
         res.writeHead(200, {
-            'Content-type': 'application/json'
+            'Content-type': 'text/html'
         });
-        res.end(data);
+        const cardsHtml = dataObject.map(cardDatainArray => replaceTemplate(cardTemplate.toString(), cardDatainArray)).join('');
+
+        const output = overviewTemplate.replace('{%CARDS%}', cardsHtml);
+        res.end(output);
     } else {
         // code, then headers
         res.writeHead(404, {
