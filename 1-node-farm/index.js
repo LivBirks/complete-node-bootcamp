@@ -36,6 +36,23 @@ const url = require('url');
 /////////////////////////////////////////////////////////////////////////
 // SERVER
 
+const replaceTemplate = (template, productData) => {
+    // use regex so it replaces all placeholders with than name
+    let output = template.replace(/{%PRODUCTNAME%}/g, productData.productName);
+    output = output.replace(/{%IMAGE%}/g, productData.image);
+    output = output.replace(/{%FROM%}/g, productData.from);
+    output = output.replace(/{%NUTRIENTS%}/g, productData.nutrients);
+    output = output.replace(/{%QUANTITY%}/g, productData.quantity);
+    output = output.replace(/{%PRICE%}/g, productData.price);
+    output = output.replace(/{%DESCRIPTION%}/g, productData.description);
+    output = output.replace(/{%ID%}/g, productData.id);
+
+    if (!productData.organic) {
+        output = output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
+    }
+    return output;
+}
+
 
 // top level code only runs on execution so this data will be saved and not be read per request
 const data = fs.readFileSync(`${__dirname}/starter/dev-data/data.json`, 'utf-8')
