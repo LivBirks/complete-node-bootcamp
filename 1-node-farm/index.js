@@ -72,13 +72,14 @@ const cardTemplate = fs.readFileSync(`${__dirname}/starter/templates/card.html`,
 
 // accepts a callbackfunction, request and reponse variables
 const server = http.createServer((req, res) => {
-    console.log(req.url);
-    const pathName = req.url;
-    if (pathName === '/' || pathName === '/overview') {
-        res.end('this is the overview');
-    } else if (pathName === '/product') {
-        res.end('this is the product');
-    } else if (pathName === '/api') {
+    console.log(`req.url: ${req.url}`);
+    const { query, pathname } = url.parse(req.url, true);
+    console.log(`query.id: ${query.id}`);
+    console.log(`pathname: ${pathname}`);
+    console.log("------------------------------")
+
+    // Overview Page
+    if (pathname === '/' || pathname === '/overview') {
         res.writeHead(200, {
             'Content-type': 'application/json'
         });
